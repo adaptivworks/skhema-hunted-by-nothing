@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skhema - Hunted by nothing</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="player">
+    <!-- Blurred video background -->
+    <div class="player__bg">
+      <video class="player__bg-video" autoplay loop muted playsinline>
+        <source src="Skhema background video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="player__overlay"></div>
+
+    <!-- Header / Logo -->
+    <header class="player__header">
+      <div class="player__logo">
+        <svg viewBox="0 0 51.84 10.5984" fill="none" xmlns="http://www.w3.org/2000/svg" class="player__logo-svg">
+          <rect x="17.7797" y="5.29922" width="2.6112" height="5.29916" fill="white"/>
+          <rect x="7.56406" y="5.29922" width="2.6112" height="5.29912" fill="white"/>
+          <rect x="30.6063" width="2.6112" height="10.5983" fill="white"/>
+          <rect x="20.3898" width="2.6112" height="5.29916" fill="white"/>
+          <path d="M4.4928 0H7.5648L3.072 5.29916H0L4.4928 0Z" fill="white"/>
+          <path d="M14.6686 0H17.7406L13.2478 5.29916H10.1758L14.6686 0Z" fill="white"/>
+          <path d="M27.5725 0H30.6445L26.1517 5.29916H23.0797L27.5725 0Z" fill="white"/>
+          <path d="M33.6775 0H30.6055L35.0983 5.29916H38.1703L33.6775 0Z" fill="white"/>
+          <path d="M39.6264 0.000537109H42.6984L38.2056 5.2997H35.1336L39.6264 0.000537109Z" fill="white"/>
+          <path d="M41.2412 5.29922H44.3132L39.8204 10.5984H36.7484L41.2412 5.29922Z" fill="white"/>
+          <path d="M47.347 5.22246H44.275L48.7678 10.5216H51.8398L47.347 5.22246Z" fill="white"/>
+          <path d="M45.7334 0H48.8438L44.351 5.29916H41.2406L45.7334 0Z" fill="white"/>
+          <path d="M13.2478 5.29922H10.1758L14.6686 10.5984H17.7406L13.2478 5.29922Z" fill="white"/>
+          <path d="M26.1517 5.29922H23.0797L27.5725 10.5984H30.6445L26.1517 5.29922Z" fill="white"/>
+          <path d="M4.4928 5.29922H7.5648L3.072 10.5984H0L4.4928 5.29922Z" fill="white"/>
+        </svg>
+      </div>
+      <div class="player__header-icons">
+        <svg viewBox="0 0 17.2245 12.1648" fill="none" xmlns="http://www.w3.org/2000/svg" class="player__icon-eq">
+          <circle cx="0.993118" cy="11.1716" r="0.993118" fill="white"/>
+          <circle cx="0.993118" cy="8.6271" r="0.993118" fill="white"/>
+          <circle cx="0.993118" cy="6.08213" r="0.993118" fill="white"/>
+          <circle cx="3.81656" cy="11.1716" r="0.993118" fill="white"/>
+          <circle cx="3.81656" cy="8.6271" r="0.993118" fill="white"/>
+          <circle cx="3.81656" cy="6.08213" r="0.993118" fill="white"/>
+          <circle cx="3.81656" cy="3.53765" r="0.993118" fill="white"/>
+          <circle cx="3.81656" cy="0.993118" r="0.993118" fill="white"/>
+          <circle cx="6.29937" cy="11.1716" r="0.993118" fill="white"/>
+          <circle cx="6.29937" cy="8.6271" r="0.993118" fill="white"/>
+          <circle cx="8.78218" cy="11.1716" r="0.993118" fill="white"/>
+          <circle cx="8.78218" cy="8.6271" r="0.993118" fill="white"/>
+          <circle cx="8.78218" cy="6.08213" r="0.993118" fill="white"/>
+          <circle cx="8.78218" cy="3.53765" r="0.993118" fill="white"/>
+          <circle cx="11.265" cy="11.1716" r="0.993118" fill="white"/>
+          <circle cx="11.265" cy="8.6271" r="0.993118" fill="white"/>
+          <circle cx="11.265" cy="6.08213" r="0.993118" fill="white"/>
+          <circle cx="13.7478" cy="11.1716" r="0.993118" fill="white"/>
+          <circle cx="13.7478" cy="8.6271" r="0.993118" fill="white"/>
+          <circle cx="13.7478" cy="6.08213" r="0.993118" fill="white"/>
+          <circle cx="13.7478" cy="3.53765" r="0.993118" fill="white"/>
+          <circle cx="16.2314" cy="11.1716" r="0.993118" fill="white"/>
+          <circle cx="16.2314" cy="8.6271" r="0.993118" fill="white"/>
+        </svg>
+        <svg viewBox="0 0 21.4994 12.9049" fill="none" xmlns="http://www.w3.org/2000/svg" class="player__icon-globe">
+          <path d="M10.6801 9.64815C10.1355 9.64906 9.63743 9.52376 9.186 9.27226C8.73458 9.01884 8.3776 8.67449 8.11506 8.23922C7.85444 7.80393 7.72369 7.32544 7.72282 6.80373C7.72194 6.2782 7.85109 5.79736 8.11027 5.36121C8.37135 4.92315 8.72718 4.57666 9.17776 4.32174C9.62834 4.06682 10.1259 3.93891 10.6706 3.938C11.2114 3.9371 11.7066 4.06336 12.1561 4.31678C12.6056 4.5702 12.9607 4.9155 13.2213 5.3527C13.4819 5.78798 13.6127 6.26838 13.6136 6.79392C13.6144 7.31563 13.4853 7.79456 13.2261 8.2307C12.9669 8.66685 12.613 9.01238 12.1643 9.2673C11.7157 9.5203 11.2209 9.64725 10.6801 9.64815ZM10.6791 9.02898C11.1014 9.02828 11.4863 8.93017 11.8338 8.73467C12.1813 8.53916 12.4541 8.27116 12.6523 7.93067C12.8524 7.59017 12.9521 7.21162 12.9514 6.79502C12.9507 6.3765 12.8497 5.99638 12.6485 5.65464C12.4492 5.31289 12.1755 5.04389 11.8273 4.84764C11.4792 4.65138 11.094 4.55361 10.6716 4.55431C10.2455 4.55502 9.85768 4.65408 9.50829 4.8515C9.16081 5.04892 8.88703 5.31883 8.68694 5.66124C8.48877 6.00364 8.39003 6.3841 8.39072 6.80262C8.39142 7.21922 8.49142 7.59744 8.69073 7.93727C8.89196 8.2771 9.16664 8.54419 9.51477 8.73853C9.86481 8.93287 10.2529 9.02969 10.6791 9.02898ZM9.51967 8.23688L9.51478 5.3044L10.8621 5.30216C11.0818 5.30179 11.272 5.33492 11.4327 5.40154C11.5933 5.46816 11.7167 5.56541 11.8029 5.69331C11.8891 5.8193 11.9324 5.97211 11.9327 6.15174C11.9329 6.29507 11.8997 6.42507 11.833 6.54176C11.7663 6.65653 11.6652 6.75034 11.5296 6.82319C11.3941 6.89412 11.225 6.93549 11.0225 6.94729L11.0278 6.73516C11.2457 6.74053 11.4139 6.77274 11.5325 6.83178C11.653 6.89082 11.7363 6.96999 11.7823 7.06929C11.8302 7.16858 11.8601 7.29275 11.8718 7.44179L11.8954 7.84307C11.9013 7.93288 11.9138 8.00739 11.933 8.0666C11.9541 8.1258 11.9838 8.18117 12.0222 8.23271L11.2941 8.23392C11.2615 8.18811 11.2385 8.1356 11.225 8.07638C11.2115 8.01524 11.2018 7.93786 11.1959 7.84423L11.1725 7.53755C11.1647 7.43819 11.1483 7.36178 11.1234 7.30831C11.1004 7.25484 11.063 7.21668 11.0114 7.19383C10.9617 7.17098 10.8919 7.15963 10.8021 7.15978L9.83893 7.16139L9.83798 6.59381L10.8269 6.59217C10.9091 6.59203 10.9779 6.57854 11.0333 6.55169C11.0905 6.52293 11.1335 6.48273 11.1621 6.43108C11.1906 6.37752 11.2049 6.31444 11.2047 6.24182C11.2046 6.16538 11.1892 6.10138 11.1586 6.04984C11.1298 5.99829 11.0848 5.95918 11.0236 5.93253C10.9643 5.90588 10.8898 5.89262 10.8 5.89277L10.0145 5.89408L10.2206 5.70741L10.2248 8.2357L9.51967 8.23688Z" fill="white"/>
+          <path d="M10.7503 0.220721C13.6851 0.220795 16.3313 0.935617 18.2366 2.07912C20.1464 3.22543 21.2785 4.77865 21.2786 6.45217C21.2786 8.12578 20.1465 9.67884 18.2366 10.8252C16.3313 11.9688 13.6852 12.6835 10.7503 12.6836C7.81524 12.6836 5.16843 11.9689 3.26301 10.8252C1.35319 9.67884 0.221021 8.12578 0.221021 6.45217C0.221146 4.77865 1.35329 3.22543 3.26301 2.07912C5.16842 0.935543 7.81537 0.220721 10.7503 0.220721Z" stroke="white" stroke-width="0.442368"/>
+          <path d="M10.6679 0.220721C13.0182 0.220721 15.1375 0.9309 16.664 2.0674C18.1904 3.20386 19.1131 4.75641 19.1132 6.45217C19.1132 8.14803 18.1905 9.70138 16.664 10.8379C15.1375 11.9743 13.018 12.6836 10.6679 12.6836C8.31774 12.6835 6.19822 11.9744 4.6718 10.8379C3.14541 9.70139 2.22258 8.14797 2.22258 6.45217C2.22268 4.75655 3.14561 3.20384 4.6718 2.0674C6.19822 0.930922 8.31774 0.220788 10.6679 0.220721Z" stroke="white" stroke-width="0.442368"/>
+          <circle cx="10.7484" cy="6.43567" r="6.09098" stroke="white" stroke-width="0.442368"/>
+          <line x1="0.130005" y1="6.71335" x2="4.75595" y2="6.71336" stroke="white" stroke-width="0.442368"/>
+          <line x1="1.18547" y1="3.72385" x2="5.29444" y2="3.72385" stroke="white" stroke-width="0.442368"/>
+          <line x1="1.77532" y1="9.67883" x2="5.61407" y2="9.67883" stroke="white" stroke-width="0.442368"/>
+          <line x1="15.8761" y1="9.67883" x2="19.7149" y2="9.67883" stroke="white" stroke-width="0.442368"/>
+          <line x1="16.2495" y1="3.72385" x2="20.3585" y2="3.72385" stroke="white" stroke-width="0.442368"/>
+          <line x1="16.6605" y1="6.71335" x2="21.2621" y2="6.71335" stroke="white" stroke-width="0.442368"/>
+        </svg>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="player__content">
+      <!-- Left: Title area -->
+      <div class="player__info">
+        <h1 class="player__title">Hunted&ensp;&ensp;by&ensp;&ensp;&ensp;&ensp;nothing</h1>
+        <span class="player__year">2024</span>
+      </div>
+
+      <!-- Center: Album art -->
+      <div class="player__artwork">
+        <img src="assets/album-cover.jpg" alt="Hunted By Nothing - Album Cover" class="player__artwork-img">
+      </div>
+
+      <!-- Right: Tracklist -->
+      <div class="player__tracklist">
+        <ul class="player__tracks">
+          <li class="player__track" data-index="0">
+            <span class="player__track-marker"></span>
+            <span class="player__track-name">ONE PLACE</span>
+            <span class="player__track-duration">1:27</span>
+          </li>
+          <li class="player__track" data-index="1">
+            <span class="player__track-marker"></span>
+            <span class="player__track-name">HUNTED&ensp;BY&ensp;&ensp;&ensp;NOTHING</span>
+            <span class="player__track-duration">3:48</span>
+          </li>
+          <li class="player__track" data-index="2">
+            <span class="player__track-marker"></span>
+            <span class="player__track-name">SEMANTICS</span>
+            <span class="player__track-duration">2:43</span>
+          </li>
+          <li class="player__track" data-index="3">
+            <span class="player__track-marker"></span>
+            <span class="player__track-name">TAD</span>
+            <span class="player__track-duration">1:05</span>
+          </li>
+          <li class="player__track" data-index="4">
+            <span class="player__track-marker"></span>
+            <span class="player__track-name">THICK&ensp;OF&ensp;&ensp;&ensp;IT</span>
+            <span class="player__track-duration">3:15</span>
+          </li>
+          <li class="player__track" data-index="5">
+            <span class="player__track-marker"></span>
+            <span class="player__track-name">HOLDING&ensp;THE&ensp;&ensp;&ensp;LINE</span>
+            <span class="player__track-duration">2:10</span>
+          </li>
+        </ul>
+      </div>
+    </main>
+
+    <!-- Playback bar (bottom) -->
+    <div class="player__bar">
+      <div class="player__bar-progress">
+        <div class="player__bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom cursor -->
+  <div class="player__cursor"></div>
+
+  <audio id="audio" preload="metadata"></audio>
+  <script src="player.js"></script>
+</body>
+</html>
