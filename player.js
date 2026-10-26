@@ -1,10 +1,10 @@
 const tracks = [
-  { name: 'ONE PLACE',              display: 'ONE PLACE',              file: 'Hunted by nothing/01 One place.mp3',            duration: '1:27' },
-  { name: 'HUNTED BY NOTHING',      display: 'HUNTED\u2002BY\u2002\u2002\u2002NOTHING',  file: 'Hunted by nothing/02 Hunted by nothing.mp3',    duration: '3:48' },
-  { name: 'SEMANTICS',              display: 'SEMANTICS',              file: 'Hunted by nothing/03 Semantics.mp3',             duration: '2:43' },
-  { name: 'TAD',                    display: 'TAD',                    file: 'Hunted by nothing/04 Tad.mp3',                   duration: '1:05' },
-  { name: 'THICK OF IT',            display: 'THICK\u2002OF\u2002\u2002\u2002IT',        file: 'Hunted by nothing/05 Thick Of It.mp3',           duration: '3:15' },
-  { name: 'HOLDING THE LINE',       display: 'HOLDING\u2002THE\u2002\u2002\u2002LINE',   file: 'Hunted by nothing/06 Holding the line.mp3',      duration: '2:10' },
+  { name: 'ONE PLACE',              display: 'ONE PLACE',              file: 'Hunted by nothing/01 One place.mp3',            duration: '1:27', ytId: 'mUEOipHmBjY', ytStart: 3, ytRate: 0.8 },
+  { name: 'HUNTED BY NOTHING',      display: 'HUNTED\u2002BY\u2002\u2002\u2002NOTHING',  file: 'Hunted by nothing/02 Hunted by nothing.mp3',    duration: '3:48', ytId: 'mUEOipHmBjY', ytStart: 460 },
+  { name: 'SEMANTICS',              display: 'SEMANTICS',              file: 'Hunted by nothing/03 Semantics.mp3',             duration: '2:43', ytId: 'QI2IlA3ztIo', ytStart: 179 },
+  { name: 'TAD',                    display: 'TAD',                    file: 'Hunted by nothing/04 Tad.mp3',                   duration: '1:05', ytId: '4rBPgGWW0VA', ytStart: 106 },
+  { name: 'THICK OF IT',            display: 'THICK\u2002OF\u2002\u2002\u2002IT',        file: 'Hunted by nothing/05 Thick Of It.mp3',           duration: '3:15', ytId: 'OacVy8_nJi0', ytStart: 7 },
+  { name: 'HOLDING THE LINE',       display: 'HOLDING\u2002THE\u2002\u2002\u2002LINE',   file: 'Hunted by nothing/06 Holding the line.mp3',      duration: '2:10', ytId: '4rBPgGWW0VA', ytStart: 12 },
 ];
 
 const audio = document.getElementById('audio');
@@ -13,12 +13,84 @@ const bar = document.querySelector('.player__bar');
 const trackEls = document.querySelectorAll('.player__track');
 const cursor = document.querySelector('.player__cursor');
 const bgVideo = document.querySelector('.player__bg-video');
+const toggleYtBtn = document.querySelector('.player__toggle-youtube');
+const playerContainer = document.querySelector('.player');
 
 let currentIndex = -1; // no track selected on load
 let isPlaying = false;
+let isYtActive = false; // YouTube toggle state
 let hoveredIndex = -1;
 
-// ── Text scramble effect ──
+let ytPlayer;
+
+// The YouTube API looks for this globally named function
+window.onYouTubeIframeAPIReady = function() {
+  // We don't load a video initially until a button is clicked
+  ytPlayer = new YT.Player('yt-bg-player', {
+    playerVars: {
+      autoplay: 0,
+      controls: 0,
+      showinfo: 0,
+      modestbranding: 1,
+      loop: 1,
+      fs: 0,
+      autohide: 0
+    },
+    events: {
+      onReady: onPlayerReady,
+      onStateChange: onPlayerStateChange
+    }
+  });
+};
+
+function onPlayerReady(event) {
+  event.target.mute();
+  // We can set playback rate here if desired
+  // event.target.setPlaybackRate(0.5); 
+}
+
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.ENDED) {
+    ytPlayer.playVideo();
+  }
+  if (event.data === YT.PlayerState.PLAYING && currentIndex !== -1) {
+    const rate = tracks[currentIndex].ytRate || 1.0;
+    event.target.setPlaybackRate(rate);
+  }
+}
+
+// Toggle logic (Master Switch)
+if (toggleYtBtn) {
+  toggleYtBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // prevent play/pause toggle from firing
+    isYtActive = !isYtActive;
+
+    if (isYtActive) {
+      playerContainer.classList.add('player--youtube-active');
+      if (bgVideo) bgVideo.pause();
+      
+      // If a track is already selected, load its specific video
+      if (currentIndex !== -1 && ytPlayer && ytPlayer.loadVideoById) {
+        const t = tracks[currentIndex];
+        ytPlayer.loadVideoById({
+          videoId: t.ytId,
+          startSeconds: t.ytStart
+        });
+        if (isPlaying) {
+          ytPlayer.playVideo();
+        }
+      }
+    } else {
+      playerContainer.classList.remove('player--youtube-active');
+      if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo();
+      // If audio is playing, resume local video
+      if (isPlaying && bgVideo) {
+         bgVideo.play();
+      }
+    }
+  });
+}
+
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*_`"\'.:;/\\|';
 const SCRAMBLE_INTERVAL = 94; // ms between scramble ticks (further 30% slower)
 let scrambleTimer = null;
@@ -71,19 +143,37 @@ function loadTrack(index) {
   currentIndex = index;
   audio.src = tracks[index].file;
   updateActiveTrack();
+  
+  // Sync YouTube Video
+  if (isYtActive && ytPlayer && ytPlayer.loadVideoById) {
+    const t = tracks[index];
+    ytPlayer.loadVideoById({
+      videoId: t.ytId,
+      startSeconds: t.ytStart
+    });
+    // It will be played by the `play()` function which follows shortly after `loadTrack()`
+  }
 }
 
 function updateActiveTrack() {
   trackEls.forEach((el, i) => {
     const isActive = i === currentIndex;
     el.classList.toggle('player__track--active', isActive);
+    
     const marker = el.querySelector('.player__track-marker');
     if (marker) {
       marker.textContent = isActive ? '+' : '';
     }
+    
     // Restore active track's real name immediately
     if (isActive) {
       el.querySelector('.player__track-name').textContent = tracks[i].display;
+    } else {
+      // If inactive, ensure its duration is reset to the static original value
+      const durationEl = el.querySelector('.player__track-duration');
+      if (durationEl) {
+        durationEl.textContent = tracks[i].duration;
+      }
     }
   });
 }
@@ -91,7 +181,11 @@ function updateActiveTrack() {
 function play() {
   audio.play();
   isPlaying = true;
-  if (bgVideo) bgVideo.play();
+  if (!isYtActive && bgVideo) {
+      bgVideo.play();
+  } else if (isYtActive && ytPlayer && ytPlayer.playVideo) {
+      ytPlayer.playVideo();
+  }
   updateCursorState();
 }
 
@@ -99,6 +193,7 @@ function pause() {
   audio.pause();
   isPlaying = false;
   if (bgVideo) bgVideo.pause();
+  if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo();
   updateCursorState();
 }
 
@@ -164,11 +259,29 @@ trackEls.forEach((el) => {
   });
 });
 
-// Update progress bar
+// Formatting helper for time M:SS
+function formatTime(seconds) {
+  if (isNaN(seconds)) return '0:00';
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+// Update progress bar & active track countdown
 audio.addEventListener('timeupdate', () => {
   if (audio.duration) {
     const pct = (audio.currentTime / audio.duration) * 100;
     barFill.style.width = pct + '%';
+
+    // Update the live countdown on the active track only
+    if (currentIndex !== -1) {
+      const activeTrackEl = trackEls[currentIndex];
+      const durationEl = activeTrackEl.querySelector('.player__track-duration');
+      if (durationEl) {
+        const remaining = Math.max(0, audio.duration - audio.currentTime);
+        durationEl.textContent = formatTime(remaining);
+      }
+    }
   }
 });
 

@@ -33,6 +33,14 @@ html, body {
   background: #000;
 }
 
+@media (max-width: 900px) {
+  html, body {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100%;
+  }
+}
+
 /* ── Player container ── */
 .player {
   position: relative;
@@ -57,6 +65,31 @@ html, body {
   object-fit: cover;
   filter: blur(16px) brightness(0.5) saturate(0.8);
   transform: scale(1.15);
+  transition: opacity 1s ease;
+  opacity: 1;
+}
+
+.player__bg-youtube {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 56.25vw; /* 16:9 Aspect Ratio */
+  min-height: 100vh;
+  min-width: 177.77vh; /* 16:9 Aspect Ratio */
+  pointer-events: none; /* Make clicks pass through */
+  filter: brightness(0.75) saturate(0.8);
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.player--youtube-active .player__bg-video {
+  opacity: 0;
+}
+
+.player--youtube-active .player__bg-youtube {
+  opacity: 1;
 }
 
 .player__overlay {
@@ -71,18 +104,43 @@ html, body {
 /* ── Header ── */
 .player__header {
   position: absolute;
-  top: 20px;
-  left: 22px;
+  top: 10px;
+  left: 10px;
   z-index: 10;
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
+/* ── YouTube Toggle Switch ── */
+.player__toggle-youtube {
+  position: absolute;
+  top: 16px; /* Aligned with the baseline of the Skhema logo */
+  right: 10px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--color-dimmed);
+  z-index: 20;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.player__toggle-youtube:hover {
+  transform: scale(1.2);
+}
+
+/* This targets the toggle button when active */
+.player__toggle-youtube.is-active,
+.player--youtube-active .player__toggle-youtube {
+  background-color: var(--color-white);
+}
+
 .player__logo-svg {
   width: 52px;
   height: auto;
   display: block;
+  /* The SVG sits in a container at top: 20px */
 }
 
 .player__header-icons {
@@ -112,8 +170,8 @@ html, body {
   display: grid;
   grid-template-columns: 1fr auto auto;
   align-items: center;
-  gap: 40px;
-  padding: 0 22px;
+  gap: 10px;
+  padding: 0 10px;
 }
 
 /* ── Left column: Title info ── */
@@ -213,7 +271,8 @@ html, body {
   font-weight: 500;
   letter-spacing: -0.48px;
   white-space: pre;
-  flex: 1;
+  width: 310px;
+  flex-shrink: 0;
 }
 
 .player__track-duration {
@@ -257,18 +316,36 @@ html, body {
 /* ── Custom cursor ── */
 .player__cursor {
   position: fixed;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--color-white);
+  width: 24px;
+  height: 24px;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: background-color 0.15s ease, opacity 0.15s ease;
+  transition: opacity 0.15s ease;
+  fill: var(--color-white);
+  /* Optional: add a slight drop shadow so the white cursor stands out against bright videos */
+  filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.4));
 }
 
-.player__cursor--paused {
-  background: #404a4a;
+.player__cursor svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Base state: playing */
+.player__cursor .cursor-play {
+  display: none;
+}
+.player__cursor .cursor-pause {
+  display: block;
+}
+
+/* Paused state */
+.player__cursor.player__cursor--paused .cursor-play {
+  display: block;
+}
+.player__cursor.player__cursor--paused .cursor-pause {
+  display: none;
 }
 
 .player__cursor--hidden {
@@ -287,9 +364,30 @@ body.cursor-default .player__track {
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
+  .player {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .player__bg {
+    position: fixed;
+  }
+
+  .player__overlay {
+    position: fixed;
+  }
+
   .player__header {
-    left: 13px;
-    top: 22px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10px;
+    z-index: 20;
+  }
+
+  .player__bar {
+    position: fixed;
   }
 
   .player__content {

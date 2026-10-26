@@ -13,8 +13,12 @@
       <video class="player__bg-video" autoplay loop muted playsinline>
         <source src="Skhema background video.mp4" type="video/mp4">
       </video>
+      <div id="yt-bg-player" class="player__bg-youtube"></div>
     </div>
     <div class="player__overlay"></div>
+
+    <!-- YouTube Sync Toggle Switch -->
+    <div class="player__toggle-youtube"></div>
 
     <!-- Header / Logo -->
     <header class="player__header">
@@ -83,7 +87,7 @@
       <!-- Left: Title area -->
       <div class="player__info">
         <h1 class="player__title">Hunted&ensp;&ensp;by&ensp;&ensp;&ensp;&ensp;nothing</h1>
-        <span class="player__year">2024</span>
+        <!-- <span class="player__year">2024</span> -->
       </div>
 
       <!-- Center: Album art -->
@@ -137,9 +141,17 @@
   </div>
 
   <!-- Custom cursor -->
-  <div class="player__cursor"></div>
+  <div class="player__cursor">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path class="cursor-play" d="M8 5v14l11-7z" />
+      <path class="cursor-pause" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+    </svg>
+  </div>
 
   <audio id="audio" preload="metadata"></audio>
+  
+  <!-- Add YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
   <script src="player.js"></script>
 </body>
 </html>
